@@ -29,7 +29,7 @@ class HelloTestCase(TestCase):
     def test_get_contacts(self):
         responce_get_contact = self.client.get(reverse("endpoint-contact"))
 
-        expect_contact = "Hello"
+        expect_contact = "contacts"
 
         self.assertEqual(responce_get_contact.content.decode(),expect_contact)
         self.assertEqual(responce_get_contact.status_code,200)
@@ -37,7 +37,7 @@ class HelloTestCase(TestCase):
     def test_get_about(self):
         responce_get_about = self.client.get(reverse("get-about"))
 
-        expected_about ="You are "
+        expected_about ="about"
 
         self.assertEqual(responce_get_about.content.decode(), expected_about)
         self.assertEqual(responce_get_about.status_code,200)
