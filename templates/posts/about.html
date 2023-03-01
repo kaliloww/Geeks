@@ -3,6 +3,9 @@
 {% block content %}
     <h1>about</h1>
 
-    <a href={% url "index-page" %}>нажмите на ссылку</a>
+    <li><a href="{% url 'get-about' %}">Страница about</a></li>
+    <li><a href="{% url 'endpoint-contact' %}">Страница contacts</a></li>
+
+
 
 {% endblock %}
