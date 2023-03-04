@@ -39,21 +39,21 @@ def get_index(request):
     #     return HttpResponse("Главная страница")
     # else :
     #     return HttpResponse("Не тот метод запроса")
-def get_about(reguest):
-    return render(reguest, "posts/about.html", context=None )
+def get_about(request):
+    return render(request, "posts/about.html", context=None )
 
 
-def get_contacts(reguest):
-   return render(reguest, "posts/contacts.html" , context=None )
+def get_contacts(request):
+   return render(request, "posts/contacts.html" , context=None )
 
 
 
 # новые три поста 
-def get_post(reguest):
-    return render(reguest, "posts/post_detail.html", context=None)
+def get_post(request):
+    return render(request, "posts/post_detail.html", context=None)
 
-def update_post (reguest):
-    return render(reguest,"posts/post_update.html", context=None)
+def update_post (request):
+    return render(request,"posts/post_update.html", context=None)
 
-def delete_post (reguest):
-    return render(reguest,"posts/post_create.html", context=None)
+def delete_post (request):
+    return render(request,"posts/post_create.html", context=None)
