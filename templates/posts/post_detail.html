@@ -1,4 +1,26 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<h1>Это страница Get post</h1>
+
+    <figure class="text-center">
+        <blockquote class="blockquote">
+            <h1 class="display-6">{{ post.title }}</h1>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            {{ post.created }}
+        </figcaption>
+    </figure>
+    <p>{{ post.content }}</p>
+
+    <br>
+    <form action="{% url 'post-delete' post.id %}" method="get">
+    {% csrf_token %}
+    <button type="submit">Удалить пост</button>
+    </form>
+    <br>
+
+    <a href="{% url 'about-page' %}">Страница о нас</a>
+    <a href="{% url 'contacts-page' %}">Контакты</a>
+    <a href="{% url 'index-page' %}">Главная</a>
+
 {% endblock %}
