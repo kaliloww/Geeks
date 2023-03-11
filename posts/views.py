@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
 from django.urls import reverse_lazy
 
-from posts.models import Post
+from posts.forms import CommentForm, PostCreateForm
+from posts.models import Post, Comment
 
 
 def hello(request):
@@ -52,12 +53,39 @@ class PostDetailView(generic.DetailView):
     template_name = "posts/post_detail.html"
 
 
-class PostCreateView(generic.CreateView):
+    def post(self, request, pk):
+        # post_id = request.POST.get("post_id", None)
+
+        post = Post.objects.get(pk=pk)  # Или post_id, если бы не было pk, нужен input hidden
+        form = CommentForm(request.POST)
+
+        # name = request.POST.get("name", None)
+        # text = request.POST.get("text", None)
+
+        # if name and text:
+        #     comment = Comment.objects.create(name=name, text=text, post=post)
+        #     comment.save()
+
+        if form.is_valid():
+            pre_saved_comment = form.save(commit=False)
+            pre_saved_comment.post = post
+            pre_saved_comment.save()
+
+        return redirect("post-detail", pk)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentForm()
+        context["title"] = "Просмотр поста"
+        return context
+
+
+class PostCreateView(generic.CreateView): 
     model = Post
     template_name = "posts/post_create.html"
-    fields = ["title", "content"]
+    # fields = ["title", "content"]
     success_url = reverse_lazy("index-page")
-
+    form_class = PostCreateForm    
 
 class PostUpdateView(generic.UpdateView):
     model = Post
@@ -89,15 +117,3 @@ class AboutView(generic.TemplateView):
 
 def get_contacts(request):
     return render(request, "posts/contacts.html", {"title": "Контакты"})
-
-
-def post_create(request):
-    return render(request, "posts/post_create.html")
-
-
-def post_delete(request):
-    return render(request, "posts/post_delete.html")
-
-
-def post_update(request):
-    return render(request, "posts/post_update.html")

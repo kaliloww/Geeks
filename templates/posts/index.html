@@ -18,8 +18,6 @@
     {% endfor %}
     <br>
 
-    <a href="{% url 'about-page' %}">Страница о нас</a>
-    <a href="{% url 'contacts-page' %}">Контакты</a><br>
-
-    <button type="button"><a href="{% url 'post-create' %}">Создать пост</a></button><br>
+    <a href="{% url 'post-create' %}"><button>Создать пост</a></button><br>
+    {% include 'posts/includes/links_include.html' %}<br>
 {% endblock %}
